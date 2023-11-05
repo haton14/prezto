@@ -10,4 +10,20 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# ghqをfzfにパクパクさせる
+fgh() {
+  declare -r REPO_NAME="$(ghq list >/dev/null | fzf-tmux --reverse +m)"
+  [[ -n "${REPO_NAME}" ]] && cd "$(ghq root)/${REPO_NAME}"
+}
+# control+j
+zle -N fgh
+bindkey '^j' fgh
+
+# 履歴検索
+function select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+}
+# control+h
+zle -N select-history
+bindkey '^h' select-history
