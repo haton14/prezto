@@ -17,7 +17,7 @@ fgh() {
 }
 # control+j
 zle -N fgh
-bindkey '^j' fgh
+bindkey '^[' fgh
 
 # 履歴検索
 function select-history() {
