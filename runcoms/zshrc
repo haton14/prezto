@@ -13,16 +13,17 @@ fi
 # ghqをfzfにパクパクさせる
 fgh() {
   cd "$(ghq root)/$(ghq list >/dev/null | fzf)"
+  zle reset-prompt
 }
 # tab+j
 zle -N fgh
-bindkey '^I[' fgh
+bindkey '\e[' fgh
 
 # 履歴検索
 function select-history() {
-  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  BUFFER=$(history -n -r 1 | awk '!x[$0]++'| fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
   CURSOR=$#BUFFER
 }
 # tab+h
 zle -N select-history
-bindkey '^Ih' select-history
+bindkey '\eh' select-history
