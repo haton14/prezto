@@ -12,18 +12,17 @@ fi
 
 # ghqをfzfにパクパクさせる
 fgh() {
-  declare -r REPO_NAME="$(ghq list >/dev/null | fzf-tmux --reverse +m)"
-  [[ -n "${REPO_NAME}" ]] && cd "$(ghq root)/${REPO_NAME}"
+  cd "$(ghq root)/$(ghq list >/dev/null | fzf)"
 }
-# control+j
+# tab+j
 zle -N fgh
-bindkey '^[' fgh
+bindkey '^I[' fgh
 
 # 履歴検索
 function select-history() {
   BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
   CURSOR=$#BUFFER
 }
-# control+h
+# tab+h
 zle -N select-history
-bindkey '^h' select-history
+bindkey '^Ih' select-history
