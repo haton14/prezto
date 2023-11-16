@@ -17,7 +17,7 @@ fgh() {
 }
 # tab+j
 zle -N fgh
-bindkey '\e[' fgh
+bindkey '^I[' fgh
 
 # 履歴検索
 function select-history() {
@@ -26,4 +26,4 @@ function select-history() {
 }
 # tab+h
 zle -N select-history
-bindkey '\eh' select-history
+bindkey '^Ih' select-history
