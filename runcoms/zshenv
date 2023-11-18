@@ -17,3 +17,9 @@ PATH=$HOME/go/bin:$PATH
 # Volta
 VOLTA_HOME=$HOME/.volta
 PATH=$VOLTA_HOME/bin:$PATH
+
+# npm
+if command -v npm &> /dev/null; then
+    PATH=`npm prefix --location=global`/bin:$PATH
+fi
+
